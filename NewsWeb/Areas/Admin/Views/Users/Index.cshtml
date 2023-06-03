@@ -1,0 +1,99 @@
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Web.Common;
+@model IEnumerable<NewsWeb.Models.User>
+
+@{
+  ViewData["Title"] = "Index";
+  Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid">
+  <!-- DataTales -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Users DataTables</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <p>
+          <a class="btn btn-primary btn-icon-split" asp-action="Create">
+            <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Create New</span>
+          </a>
+        </p>
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>
+                UserName
+              </th>
+              <th>
+                Email
+              </th>
+              <th>
+                PhoneNumber
+              </th>
+              <th>
+                Role
+              </th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var item in ViewBag.Users)
+            {
+              <tr>
+                <td>
+                  @item.UserName
+                </td>
+                <td>
+                  @item.Email
+                </td>
+                <td>
+                  @item.PhoneNumber
+                </td>
+                <td>
+                  @item.RoleId
+                </td>
+                <td>
+                  <a class="btn btn-info btn-icon-split btn-sm" asp-action="Edit" asp-route-id="@item.UserId">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-edit"></i>
+                    </span>
+                    <span class="text">Edit</span>
+                  </a>
+                  <a class="btn btn-warning btn-icon-split btn-sm" asp-action="Details" asp-route-id="@item.UserId">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-info-circle"></i>
+                    </span>
+                    <span class="text">Details</span>
+                  </a>
+                  <a class="btn btn-danger btn-icon-split btn-sm" asp-action="Delete" asp-route-id="@item.UserId">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">Delete</span>
+                  </a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <div class="dataTables_paginate paging_simple_numbers">
+          @Html.PagedListPager((IPagedList)ViewBag.Users, page => Url.Action("Index", new { page = page }),
+          new PagedListRenderOptions {
+          LiElementClasses = new string[] { "paginate_button page-item" },
+          PageClasses = new string[] { "page-link" },
+          DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+          DisplayLinkToLastPage = PagedListDisplayMode.Never,
+          DisplayLinkToPreviousPage = PagedListDisplayMode.Never,
+          DisplayLinkToNextPage = PagedListDisplayMode.Never,
+          DisplayEllipsesWhenNotShowingAllPageNumbers = false})
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

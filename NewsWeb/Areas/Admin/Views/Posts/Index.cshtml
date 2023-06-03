@@ -1,0 +1,115 @@
+﻿@model IEnumerable<NewsWeb.Models.Post>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- DataTales -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Users DataTables</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <p>
+                    <a class="btn btn-primary btn-icon-split" asp-action="Create">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="text">Create New</span>
+                    </a>
+                </p>
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SContent)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Thumb)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Published)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreateAt)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IsHot)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IsNewfeed)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Category)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.User)
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SContent)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Thumb)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Published)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreateAt)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsHot)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsNewfeed)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category.CategoryId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.User.UserId)
+                                </td>
+                                <td>
+                                    <a class="btn btn-info btn-icon-split btn-sm" asp-action="Edit" asp-route-id="@item.PostId">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-edit"></i>
+                                        </span>
+                                        <span class="text">Edit</span>
+                                    </a>
+                                    <a class="btn btn-warning btn-icon-split btn-sm" asp-action="Details" asp-route-id="@item.PostId">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-info-circle"></i>
+                                        </span>
+                                        <span class="text">Details</span>
+                                    </a>
+                                    <a class="btn btn-danger btn-icon-split btn-sm" asp-action="Delete" asp-route-id="@item.PostId">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span class="text">Delete</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
