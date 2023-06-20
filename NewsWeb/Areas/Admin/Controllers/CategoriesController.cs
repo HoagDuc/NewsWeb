@@ -24,7 +24,7 @@ namespace NewsWeb.Areas.Admin.Controllers
     public IActionResult Index(int? page)
     {
       var pageNumber = page ?? 1;
-      ViewBag.Categories = _context.Categories.ToList().ToPagedList(pageNumber, 5);
+      ViewBag.Categories = _context.Categories.ToList().ToPagedList(pageNumber, Utilities.PAGE_SIZE);
       return View();
     }
 
@@ -62,7 +62,7 @@ namespace NewsWeb.Areas.Admin.Controllers
     {
       if (ModelState.IsValid)
       {
-        category.Alias = Utilities.SEOUrl(category.CategoryName);
+        category.Alias = Utilities.FriendlyUrl(category.CategoryName);
         if (category.Parents == null)
         {
           category.Levels = 1;
@@ -75,20 +75,20 @@ namespace NewsWeb.Areas.Admin.Controllers
         if (fThumb != null)
         {
           string extension = Path.GetExtension(fThumb.FileName);
-          string newName = Utilities.SEOUrl(category.CategoryName) + "_preview" + extension;
+          string newName = Utilities.FriendlyUrl(category.CategoryName) + "_preview" + extension;
           category.Thumb = await Utilities.UploadFile(fThumb, @"categories\", newName.ToLower());
         }
         if (fCover != null)
         {
           string extension = Path.GetExtension(fCover.FileName);
-          string newName = "Cover_" + Utilities.SEOUrl(category.CategoryName) + extension;
-          category.Cover = await Utilities.UploadFile(fCover, @"cover\", newName.ToLower());
+          string newName = "Cover_" + Utilities.FriendlyUrl(category.CategoryName) + extension;
+          category.Cover = await Utilities.UploadFile(fCover, @"categories\", newName.ToLower());
         }
         if (fIcon != null)
         {
           string extension = Path.GetExtension(fIcon.FileName);
-          string newName = "Icon_" + Utilities.SEOUrl(category.CategoryName) + extension;
-          category.Icon = await Utilities.UploadFile(fIcon, @"icon\", newName.ToLower());
+          string newName = "Icon_" + Utilities.FriendlyUrl(category.CategoryName) + extension;
+          category.Icon = await Utilities.UploadFile(fIcon, @"categories\", newName.ToLower());
         }
         _context.Add(category);
         await _context.SaveChangesAsync();
@@ -110,6 +110,7 @@ namespace NewsWeb.Areas.Admin.Controllers
       {
         return NotFound();
       }
+      ViewData["DanhMucGoc"] = new SelectList(_context.Categories.Where(x => x.Levels == 1), "CategoryId", "CategoryName");
       return View(category);
     }
 
@@ -129,7 +130,7 @@ namespace NewsWeb.Areas.Admin.Controllers
       {
         try
         {
-          category.Alias = Utilities.SEOUrl(category.CategoryName);
+          category.Alias = Utilities.FriendlyUrl(category.CategoryName);
           if (category.Parents == null)
           {
             category.Levels = 1;
@@ -142,20 +143,20 @@ namespace NewsWeb.Areas.Admin.Controllers
           if (fThumb != null)
           {
             string extension = Path.GetExtension(fThumb.FileName);
-            string newName = Utilities.SEOUrl(category.CategoryName) + "_preview" + extension;
+            string newName = Utilities.FriendlyUrl(category.CategoryName) + "_preview" + extension;
             category.Thumb = await Utilities.UploadFile(fThumb, @"categories\", newName.ToLower());
           }
           if (fCover != null)
           {
             string extension = Path.GetExtension(fCover.FileName);
-            string newName = "Cover_" + Utilities.SEOUrl(category.CategoryName) + extension;
-            category.Cover = await Utilities.UploadFile(fCover, @"cover\", newName.ToLower());
+            string newName = "Cover_" + Utilities.FriendlyUrl(category.CategoryName) + extension;
+            category.Cover = await Utilities.UploadFile(fCover, @"categories\", newName.ToLower());
           }
           if (fIcon != null)
           {
             string extension = Path.GetExtension(fIcon.FileName);
-            string newName = "Icon_" + Utilities.SEOUrl(category.CategoryName) + extension;
-            category.Icon = await Utilities.UploadFile(fIcon, @"icon\", newName.ToLower());
+            string newName = "Icon_" + Utilities.FriendlyUrl(category.CategoryName) + extension;
+            category.Icon = await Utilities.UploadFile(fIcon, @"categories\", newName.ToLower());
           }
 
           _context.Update(category);

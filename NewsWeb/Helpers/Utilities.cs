@@ -9,8 +9,8 @@ namespace NewsWeb.Helpers
 {
   public class Utilities
   {
-    public static int PAGE_SIZE = 10;
-    public static string SEOUrl(string url)
+    public static int PAGE_SIZE = 5;
+    public static string FriendlyUrl(string url)
     {
       url = url.ToLower();
       url = Regex.Replace(url, @"[aàảãáạăằẳẵắặâầẩẫấậ]", "a");

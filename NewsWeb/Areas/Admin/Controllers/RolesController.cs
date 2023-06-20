@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NewsWeb.Helpers;
 using NewsWeb.Models;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace NewsWeb.Areas.Admin.Controllers
     public IActionResult Index(int? page)
     {
       var pageNumber = page ?? 1;
-      ViewBag.roles = _context.Roles.ToList().ToPagedList(pageNumber, 5);
+      ViewBag.roles = _context.Roles.ToList().ToPagedList(pageNumber, Utilities.PAGE_SIZE);
       return View();
     }
 

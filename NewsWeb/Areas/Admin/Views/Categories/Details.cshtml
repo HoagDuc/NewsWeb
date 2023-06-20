@@ -9,7 +9,7 @@
   <!-- Details -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Details Category</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Details User</h6>
     </div>
     <div class="card-body">
       <dl class="row">
@@ -47,8 +47,11 @@
           @Html.DisplayNameFor(model => model.Thumb)
         </dt>
         <dd class="col-sm-10">
-          @Html.DisplayFor(model => model.Thumb)
-        </dd> 
+          @if (!string.IsNullOrEmpty(Model.Thumb))
+          {
+            <img width="80" height="80" src="~/images/categories/@Model.Thumb" alt="@Model.CategoryName"/>
+          }
+        </dd>
         <dt class="col-sm-2">
           @Html.DisplayNameFor(model => model.Ordering)
         </dt>
@@ -71,13 +74,19 @@
           @Html.DisplayNameFor(model => model.Icon)
         </dt>
         <dd class="col-sm-10">
-          @Html.DisplayFor(model => model.Icon)
+          @if (!string.IsNullOrEmpty(Model.Icon))
+          {
+            <img width="80" height="80" src="~/images/categories/@Model.Icon" alt="@Model.CategoryName" />
+          }
         </dd>
         <dt class="col-sm-2">
           @Html.DisplayNameFor(model => model.Cover)
         </dt>
         <dd class="col-sm-10">
-          @Html.DisplayFor(model => model.Cover)
+          @if (!string.IsNullOrEmpty(Model.Cover))
+          {
+            <img width="80" height="80" src="~/images/categories/@Model.Cover" alt="@Model.CategoryName" />
+          }
         </dd>
         <dt class="col-sm-2">
           @Html.DisplayNameFor(model => model.Description)
@@ -88,9 +97,13 @@
       </dl>
 
       <div>
-        <a asp-action="Edit" asp-route-id="@Model.CategoryId">Edit</a> |
+        <a asp-action="Edit" asp-route-id="@Model.CategoryId" class="btn btn-primary">Edit</a> |
         <a asp-action="Index">Back to List</a>
       </div>
     </div>
   </div>
 </div>
+
+
+      
+
